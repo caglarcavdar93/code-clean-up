@@ -1,21 +1,98 @@
 {
   "name": "code-clean-up",
-  "displayName": "code-clean-up",
+  "displayName": "Code Clean Up",
   "description": "",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
   },
   "categories": [
-    "Other"
+    "Linters",
+    "Formatters"
   ],
-  "activationEvents": [],
+  "keywords": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"vue"
+	],
+  "activationEvents": [
+    "workspaceContains:*.[js,jsx,ts,tsx,vue]"
+  ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "code-clean-up.helloWorld",
-      "title": "Hello World"
-    }]
+    "keybindings": [
+      {
+        "command": "extension.codeCleanUp",
+        "key": "ctrl+alt+shift+c",
+        "mac": "ctrl+cmd+shift+c",
+        "when": "editorTextFocus"
+      }
+    ],
+    "languages": [
+      {
+        "id": "javascript",
+        "extensions": [
+          ".js"
+        ]
+      },
+      {
+        "id": "javascriptreact",
+        "extensions": [
+          ".jsx"
+        ]
+      },
+      {
+        "id":"typescript",
+        "extensions": [
+          ".ts"
+        ]
+      },
+      {
+        "id":"typescriptreact",
+        "aliases": [],
+        "extensions": [
+          ".tsx"
+        ]
+      },
+      {
+        "id" : "vue",
+        "aliases": ["Vue", "vue"],
+        "extensions": [
+          ".vue"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "extension.codeCleanUp",
+        "title": "Code Clean Up"
+      }
+    ],
+    "configuration": {
+      "title": "Code Clean Up",
+      "properties": {
+        "codeCleanUp.wordsToRemove": {
+          "title": "Words to Remove",
+          "type": "array",
+          "default": [
+            "console.log",
+            "debugger"
+          ],
+          "description": "Specify the words in lines to be removed."
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.codeCleanUp",
+          "group": "debug",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",
